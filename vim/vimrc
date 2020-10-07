@@ -1,0 +1,210 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"> SYSTEM
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remove the compatibility with vi config
+set nocompatible
+
+" Try to detect the file type at opening and load the corresponding indent file
+filetype off
+
+" Hide buffer instead of closing them
+set hidden
+
+" Remember more commands and search history
+set history=100
+
+" Remember more undos
+set undolevels=100
+
+" Save undo in a file
+set undofile
+
+" Avoid redrawing the screen when using macro
+set lazyredraw
+
+" Oui
+set magic
+
+" Oui le retour
+set modelines=0
+
+" Fast terminal connection
+set ttyfast
+
+" Always set a status line of the last window
+set laststatus=2
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"> GENERAL
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Print the line numbers
+set number
+
+" Hihglight the current cursor line
+set cursorline
+
+" Show the current line and column at the bottom bar
+set ruler
+
+" Always show the mode
+set showmode
+
+" Show a column at the 80 char
+set colorcolumn=80
+
+" Change the terminal title
+set title
+
+" Don't wrap line at the end of the window
+set nowrap
+
+" Show matching parenthesis
+set showmatch
+
+" Show menu for autocompletion
+set wildmenu
+
+" Add a $ at the end of the line
+set list
+
+" Flash instead of beeping
+set visualbell
+
+" Turn off the beeping sound
+set noerrorbells
+
+" Set some space before and after cursor
+set scrolloff=3
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"> INDENTATION
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set the tab to 4 spaces
+set tabstop=4
+
+" Set autoindent to 4 spaces
+set shiftwidth=4
+
+" Replace tab by spaces
+set expandtab
+
+" Copy indent from the last line
+set autoindent
+
+" Smart indentation with the syntax
+set smartindent
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"> STYLE
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim syntax highlighting
+syntax on
+
+" Activate true colors for compatible terminals like Iterm
+set termguicolors
+
+" Number of colors to 256 for compatible terminals
+set t_Co=256
+
+" Set the syntax theme
+colorscheme monokai
+
+" Set the font
+set guifont=Menlo\ Regular:h18
+
+" Set the appropriate encoding
+set encoding=utf-8 fileencodings=
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"> SEARCH
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Highlight search
+set hlsearch
+
+" Show search matches as you type, comment for if too slow
+set incsearch
+
+" Ignore case when searching
+set ignorecase
+
+" Ignore case only if the search is lowercase
+set smartcase
+
+" Set the search on all lines by default
+set gdefault
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"> KEYBINDS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Leader Key
+let mapleader=","
+
+" Faster command-line mode
+nnoremap ; :
+
+" Reload the vimrc file
+nmap <silent> <leader>s :source ~/.vim/vimrc<CR>
+
+" Press F2 to toogle the paste mode
+set pastetoggle=<F2>
+
+" Un-highlight search
+nmap <silent> <leader><space> :nohlsearch<CR>
+
+" Desactivate arrows
+map <left> <nop>
+imap <left> <nop>
+map <right> <nop>
+imap <right> <nop>
+imap <up> <nop>
+imap <down> <nop>
+
+" Change the purpose of the arrows
+map <up> 20k
+map <down> 20j
+
+" More natural movement when line's wrapping is enable
+nnoremap j gj
+nnoremap k gk
+
+" Replace % by tab
+map <tab> %
+
+" Faster escape
+inoremap jj <ESC>
+
+" Line moving faster
+nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
+nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
+
+" Empty line adding faster
+nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
+nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"> OTHER
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd Filetype make setlocal noexpandtab
+autocmd BufNewFile,BufRead *.sh let b:is_bash=1
+autocmd BufNewFile,BufRead *.sh set ft=sh
+
+map sh :let b:is_bash=1<cr>:set ft=sh<cr>
+
+set list listchars=tab:»·,trail:.
+
+
+" per .git vim configs
+" just `git config vim.settings "expandtab sw=4 sts=4"` in a git repository
+" change syntax settings for this repository
+let git_settings = system("git config --get vim.settings")
+if strlen(git_settings)
+	exe "set" git_settings
+endif
+
